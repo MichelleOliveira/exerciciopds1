@@ -1,12 +1,12 @@
 package com.iftm.course.services;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iftm.course.entities.Order;
+import com.iftm.course.dto.OrderDTO;
 import com.iftm.course.repositories.OrderRepository;
 import com.iftm.course.services.exceptions.ResourceNotFoundException;
 
@@ -14,15 +14,13 @@ import com.iftm.course.services.exceptions.ResourceNotFoundException;
 public class OrderService {
 	
 	@Autowired
-	private OrderRepository repository;
-		
-	public List<Order> findAll() {
-		return repository.findAll();
+	private OrderRepository orderRepository;
+	
+	public List<OrderDTO> findAll() {
+		return orderRepository.findAll().stream().map(e -> new OrderDTO(e)).collect(Collectors.toList());
 	}
 	
-	public Order findById(Long id) {
-		Optional<Order> obj = repository.findById(id);
-		Order entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
-		return entity;
+	public OrderDTO findById(Long id) {		
+		return new OrderDTO(orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id)));
 	}
 }

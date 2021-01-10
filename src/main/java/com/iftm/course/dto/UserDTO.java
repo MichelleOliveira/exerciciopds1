@@ -12,8 +12,7 @@ public class UserDTO implements Serializable {
 	private String email;
 	private String phone;
 	
-	public UserDTO() {
-	}
+	public UserDTO() {}
 
 	public UserDTO(Long id, String name, String email, String phone) {
 		super();
@@ -29,7 +28,7 @@ public class UserDTO implements Serializable {
 		this.email = entity.getEmail();
 		this.phone = entity.getPhone();
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

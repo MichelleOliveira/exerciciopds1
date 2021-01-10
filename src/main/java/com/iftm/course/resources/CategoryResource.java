@@ -1,6 +1,5 @@
 package com.iftm.course.resources;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,44 +18,38 @@ import com.iftm.course.dto.CategoryDTO;
 import com.iftm.course.services.CategoryService;
 
 @RestController
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/categorys")
 public class CategoryResource {
 	
 	@Autowired
-	private CategoryService service;
-
+	private CategoryService categoryService;
+	
 	@GetMapping
-	public ResponseEntity<List<CategoryDTO>> findAll() {	
-		List<CategoryDTO> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+	public 	ResponseEntity<List<CategoryDTO>> findAll() {
+		return ResponseEntity.ok().body(categoryService.findAll());
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
-		CategoryDTO dto = service.findById(id);
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
+		return ResponseEntity.ok().body(categoryService.findById(id));
 	}
 	
 	@PostMapping
 	public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
-		CategoryDTO newDto = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-					.buildAndExpand(newDto.getId()).toUri();
-		return ResponseEntity.created(uri).body(newDto);
+		return ResponseEntity
+				.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+						.buildAndExpand(dto.getId()).toUri())
+				.body(categoryService.insert(dto));
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		service.delete(id);
+		categoryService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
-		dto = service.update(id, dto);
-		return ResponseEntity.ok().body(dto);
+		return ResponseEntity.ok().body(categoryService.update(id, dto));
 	}
-	
-	
-	
 }

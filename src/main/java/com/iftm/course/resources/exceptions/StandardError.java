@@ -14,9 +14,8 @@ public class StandardError implements Serializable {
 	private String error;
 	private String message;
 	private String path;
-	
-	public StandardError() {
-	}
+
+	public StandardError() {}
 
 	public StandardError(Instant timestamp, Integer status, String error, String message, String path) {
 		super();
@@ -66,5 +65,4 @@ public class StandardError implements Serializable {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
 }

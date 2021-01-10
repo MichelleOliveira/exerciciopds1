@@ -6,16 +6,16 @@ import com.iftm.course.entities.Product;
 
 public class ProductDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private String name;
 	private String description;
 	private Double price;
+	
 	private String imgUrl;
-	
-	public ProductDTO() {
-	}
-	
+
+	public ProductDTO() {}
+
 	public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
 		super();
 		this.id = id;
@@ -24,7 +24,7 @@ public class ProductDTO implements Serializable {
 		this.price = price;
 		this.imgUrl = imgUrl;
 	}
-	
+
 	public ProductDTO(Product entity) {
 		this.id = entity.getId();
 		this.name = entity.getName();
@@ -72,7 +72,7 @@ public class ProductDTO implements Serializable {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	
+
 	public Product toEntity() {
 		return new Product(id, name, description, price, imgUrl);
 	}
